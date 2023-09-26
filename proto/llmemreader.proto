@@ -1,0 +1,31 @@
+package dfproto.llmemoryreader;
+
+option optimize_for = LITE_RUNTIME;
+
+// LLMemoryReader::GetInfo: EmptyMessage -> Info
+message Info {
+    optional string version = 1;
+    optional uint32 pe = 2;
+    optional string md5 = 3;
+    optional sint64 base_offset = 4;
+}
+
+// LLMemoryReader::ReadRaw: ReadRawIn -> ReadRawOut
+message ReadRawIn {
+	required uint64 address = 1;
+	required uint64 length = 2;
+}
+
+message ReadRawOut {
+    optional bytes data = 1;
+    optional string error_message = 2;
+}
+
+// LLMemoryReader::ReadRawV: ReawRawVIn -> ReadRawVOut
+message ReadRawVIn {
+    repeated ReadRawIn list = 1;
+}
+
+message ReadRawVOut {
+    repeated ReadRawOut list = 1;
+}
